@@ -6,7 +6,6 @@ function createImage() {
   img.alt = altText;
   img.width = 300;
   img.src = rick;
-  console.log(rick)
 
   const body = document.querySelector('body');
   body.appendChild(img);

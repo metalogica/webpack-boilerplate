@@ -1,6 +1,7 @@
 var path = require('path')
 
 module.exports = {
+  mode: 'none',
   entry: './src/index.js',
   output: {
     filename: 'bundle.js',
@@ -10,7 +11,6 @@ module.exports = {
     // dont forget final `/`
     publicPath: ''
   },
-  mode: 'none',
   module: {
     rules: [
       {
@@ -25,6 +25,13 @@ module.exports = {
       {
         test: /\.txt$/,
         type: 'asset/source'
+      },
+      {
+        test: /\.css/,
+        use: [
+          'style-loader',
+          'css-loader'
+        ]
       }
     ]
   }
