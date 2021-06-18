@@ -4,13 +4,27 @@ module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, './dist')
+    path: path.resolve(__dirname, './dist'),
+    // can be used to configure servign static assets on CDN or Express server i.e. { publicPath: ' http://some-cdn.com/'}
+    // `dist/${publicPath}/`
+    // dont forget final `/`
+    publicPath: ''
   },
+  mode: 'none',
   module: {
     rules: [
       {
-        test: /\.(png|jpg)$/,
-        type: 'asset/resource'
+        test: /\.(jpg|jpeg|png|gif|svg)$/,
+        type: 'asset',
+        parser: {
+          dataUrlCondition: {
+            maxSize: 3 * 1024 // any img larger than 3 kb will be bundled as separate resource
+          }
+        }
+      },
+      {
+        test: /\.txt$/,
+        type: 'asset/source'
       }
     ]
   }
