@@ -4,7 +4,7 @@
   "description": "webpack-5-boilerplate",
   "main": "index.js",
   "scripts": {
-    "build": "npx webpack"
+    "build": "webpack"
   },
   "author": "metalogica",
   "license": "ISC",
