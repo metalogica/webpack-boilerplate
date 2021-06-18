@@ -2,9 +2,10 @@ import './style.scss'
 
 class HelloWorldButton {
   text = 'The Power Of Babel.';
-
+  
   render() {    
     const body = document.querySelector('body');
+    console.log('ES2021 magic: javascript is the best. javascript is the coolest.'.replaceAll('javascript', 'javascript!!!!!!'));
 
     const button = document.createElement('button');
     button.innerHTML = this.text;
