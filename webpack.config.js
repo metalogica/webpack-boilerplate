@@ -1,5 +1,6 @@
-const path = require('path')
-const TerserPlugin = require('terser-webpack-plugin')
+const path = require('path');
+const TerserPlugin = require('terser-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   mode: 'none',
@@ -25,14 +26,28 @@ module.exports = {
           }
         }
       },
+      // laternative img arrangement
+      // {
+      //   test: /\.(jpg|png)$/,
+      //   use: [ 'file-loader' ]
+      // },
       {
         test: /\.txt$/,
         type: 'asset/source'
       },
       {
+        test: /\.css/,
+        use: [
+          // 'style-loader', // replaced by minification plugin
+          MiniCssExtractPlugin.loader,
+          'css-loader'
+        ]
+      },
+      {
         test: /\.scss/,
         use: [
-          'style-loader',
+          // 'style-loader', // replaced by minification plugin
+          MiniCssExtractPlugin.loader,
           'css-loader',
           'sass-loader'
         ]
@@ -53,6 +68,7 @@ module.exports = {
 
   // PLUGINS
   plugins: [
-    new TerserPlugin()
+    new TerserPlugin(),
+    new MiniCssExtractPlugin()
   ]
 }
