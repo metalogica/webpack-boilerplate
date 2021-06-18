@@ -1,4 +1,5 @@
-var path = require('path')
+const path = require('path')
+const TerserPlugin = require('terser-webpack-plugin')
 
 module.exports = {
   mode: 'none',
@@ -11,6 +12,8 @@ module.exports = {
     // dont forget final `/`
     publicPath: ''
   },
+
+  // MODULE
   module: {
     rules: [
       {
@@ -46,5 +49,10 @@ module.exports = {
         }
       }
     ]
-  }
+  },
+
+  // PLUGINS
+  plugins: [
+    new TerserPlugin()
+  ]
 }
