@@ -1,11 +1,13 @@
-import './style.css'
+import './style.scss'
 
 class HelloWorldButton {
+  text = 'The Power Of Babel.';
+
   render() {    
     const body = document.querySelector('body');
 
     const button = document.createElement('button');
-    button.innerHTML = 'Hello World';
+    button.innerHTML = this.text;
     button.classList.add('btn')
     button.onclick = function() {
       const p = document.createElement('p');
