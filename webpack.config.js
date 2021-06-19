@@ -1,17 +1,21 @@
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   mode: 'none',
   entry: './src/index.js',
   output: {
-    filename: 'bundle.js',
+    // set content hash for cache busting
+    filename: 'bundle.[contenthash].js',
     path: path.resolve(__dirname, './dist'),
     // can be used to configure servign static assets on CDN or Express server i.e. { publicPath: ' http://some-cdn.com/'}
     // `dist/${publicPath}/`
     // dont forget final `/`
-    publicPath: ''
+    publicPath: '',
+    // clean output in `dist` before each build
+    clean: true
   },
 
   // MODULE
@@ -69,6 +73,9 @@ module.exports = {
   // PLUGINS
   plugins: [
     new TerserPlugin(),
-    new MiniCssExtractPlugin()
+    new MiniCssExtractPlugin({
+      filename: 'style.[contenthash].css'
+    }),
+    new HtmlWebpackPlugin()
   ]
 }
