@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --config webpack.production.config.js",
-    "dev": "webpack server --config webpack.development.config.js --hot"
+    "dev": "webpack server --config webpack.development.config.js --hot",
+    "start": "node ./src/server.js"
   },
   "author": "metalogica",
   "license": "ISC",
