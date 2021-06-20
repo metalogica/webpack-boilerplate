@@ -1,14 +1,17 @@
 const path = require('path');
-const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-  mode: 'none',
-  entry: './src/index.js',
+  mode: 'production',
+  entry: {
+    'homePage': './src/index.js',
+    'mortyPage': './src/morty.js'
+  },
   output: {
-    // set content hash for cache busting
-    filename: 'bundle.[contenthash].js',
+    // [name] is entrypoint filenamew
+    // [contenthash] is used for cach-busting
+    filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, './dist'),
     // can be used to configure servign static assets on CDN or Express server i.e. { publicPath: ' http://some-cdn.com/'}
     // `dist/${publicPath}/`
@@ -66,16 +69,45 @@ module.exports = {
             plugins: [ '@babel/plugin-proposal-class-properties' ]
           }
         }
+      },
+      {
+        // https://github.com/pcardune/handlebars-loader
+        test: /\.hbs$/,
+        use: [ 'handlebars-loader' ]
       }
     ]
   },
 
   // PLUGINS
   plugins: [
-    new TerserPlugin(),
+    // move all css files in dev into a single css file in production
+    // [name] is name of style.scss
     new MiniCssExtractPlugin({
-      filename: 'style.[contenthash].css'
+      filename: '[name].[contenthash].css'
     }),
-    new HtmlWebpackPlugin()
+    new HtmlWebpackPlugin({
+      title: "Webpack Y'all",
+      filename: 'index.html',
+      template: 'src/pages/about.hbs',
+      minify: true,
+      // defined in `entry` field
+      chunks: ['homePage'],
+      description: 'page-description',
+      meta: {
+        description: 'a-custom-meta-tag'
+      },
+    }),
+    new HtmlWebpackPlugin({
+      title: 'MORTY',
+      filename: 'morty.html',
+      template: 'src/pages/about.hbs',
+      minify: true,
+      // defined in `entry` field
+      chunks: ['mortyPage'],
+      description: 'Picture of morty',
+      meta: {
+        description: 'Morty pic'
+      }
+    })
   ]
 }
