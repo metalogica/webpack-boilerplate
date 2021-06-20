@@ -1,9 +1,13 @@
+import _ from 'lodash';
 import './style.scss'
 
 class HelloWorldButton {
+  
   text = 'The Power Of Babel.';
   
   render() {    
+    console.log(_.upperFirst('Example of common dependency extraction. fired for Hello World Button.'));
+
     const body = document.querySelector('body');
     console.log('ES2021 magic: javascript is the best. javascript is the coolest.'.replaceAll('javascript', 'javascript!!!!!!'));
 

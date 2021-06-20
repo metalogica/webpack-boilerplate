@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   // CORE CONFIG
+  // sourceMaps enabled by default.
   mode: 'development',
   entry: './src/index.js',
   output: {
