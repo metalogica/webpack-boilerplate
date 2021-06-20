@@ -5,10 +5,13 @@ module.exports = {
   // CORE CONFIG
   // sourceMaps enabled by default.
   mode: 'development',
-  entry: './src/index.js',
+  entry: {
+    'homePage': './src/index.js',
+    'mortyPage': './src/morty.js'
+  },
   output: {
     // no need for caching in development
-    filename: 'bundle.js',
+    filename: '[name].bundle.js',
     path: path.resolve(__dirname, './dist'),
     // can be used to configure servign static assets on CDN or Express server i.e. { publicPath: ' http://some-cdn.com/'}
     // `dist/${publicPath}/`
@@ -87,11 +90,27 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       title: "Webpack Y'all",
-      template: 'src/index.hbs',
+      filename: 'index.html',
+      template: 'src/pages/about.hbs',
+      minify: false,
+      // defined in `entry` field
+      chunks: ['homePage'],
+      description: 'page-description',
       meta: {
         description: 'a-custom-meta-tag'
       },
-      description: 'page-description'
+    }),
+    new HtmlWebpackPlugin({
+      title: 'MORTY',
+      filename: 'morty.html',
+      template: 'src/pages/about.hbs',
+      minify: false,
+      // defined in `entry` field
+      chunks: ['mortyPage'],
+      description: 'Picture of morty',
+      meta: {
+        description: 'Morty pic'
+      }
     })
   ]
 }

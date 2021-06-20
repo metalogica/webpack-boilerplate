@@ -6,7 +6,9 @@ module.exports = {
   mode: 'production',
   optimization: {
     splitChunks: {
-      chunks: 'all'
+      chunks: 'all',
+      // only chunck commone dependency if it is > 3000kb
+      minSize: 3000
     }
   },
   entry: {
